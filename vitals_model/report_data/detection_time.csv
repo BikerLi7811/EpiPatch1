@@ -1,0 +1,545 @@
+model,seconds_from_onset
+Rules engine (firmware),162
+Rules engine (firmware),759
+Rules engine (firmware),59
+Rules engine (firmware),105
+Rules engine (firmware),302
+Rules engine (firmware),83
+Rules engine (firmware),78
+Rules engine (firmware),86
+Rules engine (firmware),113
+Rules engine (firmware),65
+Rules engine (firmware),26
+Rules engine (firmware),136
+Rules engine (firmware),45
+Rules engine (firmware),137
+Rules engine (firmware),121
+Rules engine (firmware),156
+Rules engine (firmware),120
+Rules engine (firmware),69
+Rules engine (firmware),95
+Rules engine (firmware),133
+Rules engine (firmware),117
+Rules engine (firmware),234
+Rules engine (firmware),71
+Rules engine (firmware),291
+Rules engine (firmware),489
+Rules engine (firmware),311
+Rules engine (firmware),80
+Rules engine (firmware),285
+Rules engine (firmware),103
+Rules engine (firmware),42
+Rules engine (firmware),99
+Rules engine (firmware),295
+Rules engine (firmware),132
+Rules engine (firmware),190
+Rules engine (firmware),262
+Rules engine (firmware),56
+Rules engine (firmware),49
+Rules engine (firmware),274
+Rules engine (firmware),62
+Rules engine (firmware),91
+Rules engine (firmware),54
+Rules engine (firmware),88
+Rules engine (firmware),477
+Rules engine (firmware),36
+Rules engine (firmware),60
+Rules engine (firmware),112
+Rules engine (firmware),127
+Rules engine (firmware),145
+Rules engine (firmware),117
+Rules engine (firmware),74
+Rules engine (firmware),226
+Rules engine (firmware),49
+Rules engine (firmware),68
+Rules engine (firmware),96
+Rules engine (firmware),39
+Rules engine (firmware),114
+Rules engine (firmware),57
+Rules engine (firmware),46
+Rules engine (firmware),53
+Rules engine (firmware),172
+Rules engine (firmware),36
+Rules engine (firmware),245
+Rules engine (firmware),99
+Rules engine (firmware),167
+Rules engine (firmware),81
+Rules engine (firmware),123
+Rules engine (firmware),161
+Rules engine (firmware),124
+Rules engine (firmware),142
+Rules engine (firmware),126
+Rules engine (firmware),112
+Rules engine (firmware),60
+Rules engine (firmware),74
+Rules engine (firmware),80
+Rules engine (firmware),37
+Rules engine (firmware),174
+Rules engine (firmware),129
+Rules engine (firmware),116
+Rules engine (firmware),129
+Rules engine (firmware),154
+Rules engine (firmware),109
+Rules engine (firmware),77
+Rules engine (firmware),81
+Rules engine (firmware),132
+Rules engine (firmware),117
+Rules engine (firmware),566
+Rules engine (firmware),74
+Rules engine (firmware),323
+Rules engine (firmware),104
+Rules engine (firmware),88
+Rules engine (firmware),75
+Rules engine (firmware),85
+Rules engine (firmware),561
+Rules engine (firmware),89
+Rules engine (firmware),67
+Rules engine (firmware),70
+Rules engine (firmware),152
+Rules engine (firmware),64
+Rules engine (firmware),63
+Rules engine (firmware),60
+Rules engine (firmware),145
+Rules engine (firmware),55
+Rules engine (firmware),81
+Rules engine (firmware),371
+Rules engine (firmware),145
+Rules engine (firmware),511
+Rules engine (firmware),169
+Rules engine (firmware),86
+Rules engine (firmware),287
+Rules engine (firmware),121
+Rules engine (firmware),129
+Rules engine (firmware),61
+Rules engine (firmware),151
+Rules engine (firmware),288
+Rules engine (firmware),133
+Rules engine (firmware),117
+Rules engine (firmware),120
+Rules engine (firmware),105
+Rules engine (firmware),47
+Rules engine (firmware),54
+Logistic regression,147
+Logistic regression,291
+Logistic regression,-398
+Logistic regression,339
+Logistic regression,-269
+Logistic regression,303
+Logistic regression,177
+Logistic regression,301
+Logistic regression,284
+Logistic regression,-619
+Logistic regression,-147
+Logistic regression,-128
+Logistic regression,107
+Logistic regression,155
+Logistic regression,189
+Logistic regression,-10
+Logistic regression,269
+Logistic regression,250
+Logistic regression,78
+Logistic regression,380
+Logistic regression,376
+Logistic regression,360
+Logistic regression,55
+Logistic regression,120
+Logistic regression,147
+Logistic regression,-229
+Logistic regression,128
+Logistic regression,299
+Logistic regression,304
+Logistic regression,107
+Logistic regression,388
+Logistic regression,101
+Logistic regression,-64
+Logistic regression,222
+Logistic regression,251
+Logistic regression,280
+Logistic regression,141
+Logistic regression,102
+Logistic regression,-345
+Logistic regression,-351
+Logistic regression,304
+Logistic regression,-448
+Logistic regression,-108
+Logistic regression,205
+Logistic regression,115
+Logistic regression,160
+Logistic regression,340
+Logistic regression,90
+Logistic regression,97
+Logistic regression,103
+Logistic regression,236
+Logistic regression,89
+Logistic regression,-372
+Logistic regression,183
+Logistic regression,134
+Logistic regression,-101
+Logistic regression,-443
+Logistic regression,89
+Logistic regression,105
+Logistic regression,-510
+Logistic regression,313
+Logistic regression,156
+Logistic regression,-161
+Logistic regression,250
+Logistic regression,80
+Logistic regression,135
+Logistic regression,-235
+Logistic regression,75
+Logistic regression,334
+Logistic regression,290
+Logistic regression,-543
+Logistic regression,120
+Logistic regression,-531
+Logistic regression,264
+Logistic regression,-223
+Logistic regression,104
+Logistic regression,278
+Logistic regression,252
+Logistic regression,317
+Logistic regression,119
+Logistic regression,-409
+Logistic regression,132
+Logistic regression,67
+Logistic regression,-584
+Logistic regression,215
+Logistic regression,-357
+Logistic regression,171
+Logistic regression,83
+Logistic regression,208
+Logistic regression,238
+Logistic regression,-487
+Logistic regression,152
+Logistic regression,168
+Logistic regression,205
+Logistic regression,335
+Logistic regression,-34
+Logistic regression,-471
+Logistic regression,117
+Logistic regression,169
+Logistic regression,147
+Logistic regression,-395
+Logistic regression,82
+Logistic regression,122
+Logistic regression,139
+Logistic regression,109
+Logistic regression,-307
+Logistic regression,-315
+Logistic regression,106
+Logistic regression,192
+Logistic regression,50
+Logistic regression,19
+Logistic regression,490
+Logistic regression,210
+Logistic regression,176
+Logistic regression,228
+Logistic regression,210
+Logistic regression,257
+Logistic regression,191
+Logistic regression,-94
+Logistic regression,-184
+Logistic regression,270
+Logistic regression,-543
+Logistic regression,106
+Logistic regression,52
+Logistic regression,161
+Logistic regression,111
+Logistic regression,114
+Decision tree (depth 6),89
+Decision tree (depth 6),201
+Decision tree (depth 6),137
+Decision tree (depth 6),26
+Decision tree (depth 6),59
+Decision tree (depth 6),-688
+Decision tree (depth 6),328
+Decision tree (depth 6),412
+Decision tree (depth 6),116
+Decision tree (depth 6),258
+Decision tree (depth 6),88
+Decision tree (depth 6),-235
+Decision tree (depth 6),102
+Decision tree (depth 6),-445
+Decision tree (depth 6),56
+Decision tree (depth 6),34
+Decision tree (depth 6),100
+Decision tree (depth 6),60
+Decision tree (depth 6),94
+Decision tree (depth 6),71
+Decision tree (depth 6),126
+Decision tree (depth 6),162
+Decision tree (depth 6),144
+Decision tree (depth 6),62
+Decision tree (depth 6),136
+Decision tree (depth 6),287
+Decision tree (depth 6),110
+Decision tree (depth 6),156
+Decision tree (depth 6),-92
+Decision tree (depth 6),80
+Decision tree (depth 6),236
+Decision tree (depth 6),71
+Decision tree (depth 6),159
+Decision tree (depth 6),142
+Decision tree (depth 6),148
+Decision tree (depth 6),86
+Decision tree (depth 6),153
+Decision tree (depth 6),137
+Decision tree (depth 6),63
+Decision tree (depth 6),114
+Decision tree (depth 6),134
+Decision tree (depth 6),90
+Decision tree (depth 6),98
+Decision tree (depth 6),74
+Decision tree (depth 6),153
+Decision tree (depth 6),140
+Decision tree (depth 6),54
+Decision tree (depth 6),42
+Decision tree (depth 6),-703
+Decision tree (depth 6),-478
+Decision tree (depth 6),84
+Decision tree (depth 6),61
+Decision tree (depth 6),82
+Decision tree (depth 6),230
+Decision tree (depth 6),43
+Decision tree (depth 6),53
+Decision tree (depth 6),243
+Decision tree (depth 6),55
+Decision tree (depth 6),119
+Decision tree (depth 6),85
+Decision tree (depth 6),70
+Decision tree (depth 6),118
+Decision tree (depth 6),67
+Decision tree (depth 6),126
+Decision tree (depth 6),45
+Decision tree (depth 6),72
+Decision tree (depth 6),85
+Decision tree (depth 6),55
+Decision tree (depth 6),161
+Decision tree (depth 6),146
+Decision tree (depth 6),50
+Decision tree (depth 6),86
+Decision tree (depth 6),50
+Decision tree (depth 6),173
+Decision tree (depth 6),275
+Decision tree (depth 6),40
+Decision tree (depth 6),187
+Decision tree (depth 6),63
+Decision tree (depth 6),105
+Decision tree (depth 6),56
+Decision tree (depth 6),77
+Decision tree (depth 6),230
+Decision tree (depth 6),98
+Decision tree (depth 6),52
+Decision tree (depth 6),73
+Decision tree (depth 6),152
+Decision tree (depth 6),99
+Decision tree (depth 6),144
+Decision tree (depth 6),70
+Decision tree (depth 6),132
+Decision tree (depth 6),169
+Decision tree (depth 6),43
+Decision tree (depth 6),76
+Decision tree (depth 6),146
+Decision tree (depth 6),-13
+Decision tree (depth 6),79
+Decision tree (depth 6),37
+Decision tree (depth 6),134
+Decision tree (depth 6),98
+Decision tree (depth 6),113
+Decision tree (depth 6),96
+Decision tree (depth 6),134
+Decision tree (depth 6),170
+Decision tree (depth 6),60
+Decision tree (depth 6),134
+Decision tree (depth 6),77
+Decision tree (depth 6),104
+Decision tree (depth 6),52
+Decision tree (depth 6),140
+Decision tree (depth 6),196
+Decision tree (depth 6),355
+Decision tree (depth 6),81
+Decision tree (depth 6),109
+Decision tree (depth 6),-645
+Decision tree (depth 6),100
+Decision tree (depth 6),88
+Decision tree (depth 6),104
+Decision tree (depth 6),100
+Decision tree (depth 6),83
+Decision tree (depth 6),86
+Decision tree (depth 6),110
+Decision tree (depth 6),60
+Decision tree (depth 6),82
+Decision tree (depth 6),21
+Decision tree (depth 6),95
+Decision tree (depth 6),60
+Decision tree (depth 6),-324
+Decision tree (depth 6),178
+Decision tree (depth 6),74
+Decision tree (depth 6),84
+Decision tree (depth 6),152
+Decision tree (depth 6),127
+Decision tree (depth 6),247
+Decision tree (depth 6),84
+Decision tree (depth 6),91
+Decision tree (depth 6),152
+Decision tree (depth 6),190
+Decision tree (depth 6),129
+Decision tree (depth 6),174
+Decision tree (depth 6),150
+Decision tree (depth 6),83
+Decision tree (depth 6),69
+Decision tree (depth 6),125
+Decision tree (depth 6),-359
+Decision tree (depth 6),73
+Decision tree (depth 6),103
+Decision tree (depth 6),-564
+Decision tree (depth 6),72
+Decision tree (depth 6),151
+Decision tree (depth 6),-677
+Decision tree (depth 6),35
+Gradient-boosted trees,110
+Gradient-boosted trees,246
+Gradient-boosted trees,160
+Gradient-boosted trees,107
+Gradient-boosted trees,132
+Gradient-boosted trees,377
+Gradient-boosted trees,418
+Gradient-boosted trees,178
+Gradient-boosted trees,255
+Gradient-boosted trees,147
+Gradient-boosted trees,287
+Gradient-boosted trees,134
+Gradient-boosted trees,131
+Gradient-boosted trees,121
+Gradient-boosted trees,218
+Gradient-boosted trees,104
+Gradient-boosted trees,71
+Gradient-boosted trees,108
+Gradient-boosted trees,114
+Gradient-boosted trees,146
+Gradient-boosted trees,194
+Gradient-boosted trees,165
+Gradient-boosted trees,80
+Gradient-boosted trees,315
+Gradient-boosted trees,386
+Gradient-boosted trees,162
+Gradient-boosted trees,213
+Gradient-boosted trees,195
+Gradient-boosted trees,122
+Gradient-boosted trees,200
+Gradient-boosted trees,103
+Gradient-boosted trees,154
+Gradient-boosted trees,108
+Gradient-boosted trees,190
+Gradient-boosted trees,151
+Gradient-boosted trees,153
+Gradient-boosted trees,228
+Gradient-boosted trees,63
+Gradient-boosted trees,100
+Gradient-boosted trees,158
+Gradient-boosted trees,174
+Gradient-boosted trees,144
+Gradient-boosted trees,94
+Gradient-boosted trees,149
+Gradient-boosted trees,169
+Gradient-boosted trees,75
+Gradient-boosted trees,175
+Gradient-boosted trees,174
+Gradient-boosted trees,91
+Gradient-boosted trees,168
+Gradient-boosted trees,73
+Gradient-boosted trees,106
+Gradient-boosted trees,259
+Gradient-boosted trees,84
+Gradient-boosted trees,69
+Gradient-boosted trees,77
+Gradient-boosted trees,159
+Gradient-boosted trees,100
+Gradient-boosted trees,136
+Gradient-boosted trees,167
+Gradient-boosted trees,114
+Gradient-boosted trees,135
+Gradient-boosted trees,45
+Gradient-boosted trees,77
+Gradient-boosted trees,99
+Gradient-boosted trees,47
+Gradient-boosted trees,168
+Gradient-boosted trees,163
+Gradient-boosted trees,59
+Gradient-boosted trees,101
+Gradient-boosted trees,77
+Gradient-boosted trees,233
+Gradient-boosted trees,428
+Gradient-boosted trees,90
+Gradient-boosted trees,186
+Gradient-boosted trees,44
+Gradient-boosted trees,322
+Gradient-boosted trees,146
+Gradient-boosted trees,97
+Gradient-boosted trees,235
+Gradient-boosted trees,104
+Gradient-boosted trees,52
+Gradient-boosted trees,166
+Gradient-boosted trees,159
+Gradient-boosted trees,111
+Gradient-boosted trees,203
+Gradient-boosted trees,164
+Gradient-boosted trees,179
+Gradient-boosted trees,194
+Gradient-boosted trees,48
+Gradient-boosted trees,298
+Gradient-boosted trees,397
+Gradient-boosted trees,110
+Gradient-boosted trees,89
+Gradient-boosted trees,65
+Gradient-boosted trees,153
+Gradient-boosted trees,136
+Gradient-boosted trees,134
+Gradient-boosted trees,147
+Gradient-boosted trees,134
+Gradient-boosted trees,195
+Gradient-boosted trees,121
+Gradient-boosted trees,191
+Gradient-boosted trees,175
+Gradient-boosted trees,103
+Gradient-boosted trees,129
+Gradient-boosted trees,152
+Gradient-boosted trees,244
+Gradient-boosted trees,133
+Gradient-boosted trees,129
+Gradient-boosted trees,177
+Gradient-boosted trees,206
+Gradient-boosted trees,89
+Gradient-boosted trees,318
+Gradient-boosted trees,92
+Gradient-boosted trees,106
+Gradient-boosted trees,106
+Gradient-boosted trees,45
+Gradient-boosted trees,79
+Gradient-boosted trees,184
+Gradient-boosted trees,97
+Gradient-boosted trees,109
+Gradient-boosted trees,73
+Gradient-boosted trees,223
+Gradient-boosted trees,100
+Gradient-boosted trees,199
+Gradient-boosted trees,162
+Gradient-boosted trees,134
+Gradient-boosted trees,222
+Gradient-boosted trees,102
+Gradient-boosted trees,132
+Gradient-boosted trees,185
+Gradient-boosted trees,130
+Gradient-boosted trees,231
+Gradient-boosted trees,179
+Gradient-boosted trees,124
+Gradient-boosted trees,69
+Gradient-boosted trees,126
+Gradient-boosted trees,200
+Gradient-boosted trees,86
+Gradient-boosted trees,221
+Gradient-boosted trees,284
+Gradient-boosted trees,159
+Gradient-boosted trees,154
+Gradient-boosted trees,87
+Gradient-boosted trees,126
