@@ -1,0 +1,28 @@
+/*
+ * PDM MEMS mic on the nRF54L15 DK.
+ * PDM20 lives in the PERI power domain, so CLK/DIN must be port 1 pins.
+ * P1.12 = PDM CLK, P1.13 = PDM DATA (same as Zephyr's dmic sample).
+ * Mic SEL/LR pin -> GND (left channel), VDD 1.8 V, CLK/DATA direct.
+ */
+/ {
+	aliases {
+		wheeze-mic = &pdm20;
+		wheeze-led = &led0; /* optional: remove to never drive an LED */
+	};
+};
+
+&pinctrl {
+	pdm20_default_alt: pdm20_default_alt {
+		group1 {
+			psels = <NRF_PSEL(PDM_CLK, 1, 12)>,
+				<NRF_PSEL(PDM_DIN, 1, 13)>;
+		};
+	};
+};
+
+&pdm20 {
+	status = "okay";
+	pinctrl-0 = <&pdm20_default_alt>;
+	pinctrl-names = "default";
+	clock-source = "PCLK32M";
+};
