@@ -1,0 +1,19 @@
+description: |
+  TI ADS1292R ECG + respiration front end, driven by the wearable app's own
+  register-level driver (src/drivers/ads1292r.cpp).
+
+compatible: "wearable,ads1292r"
+
+include: spi-device.yaml
+
+properties:
+  drdy-gpios:
+    type: phandle-array
+    required: true
+    description: DRDY output (active low).
+  pwdn-gpios:
+    type: phandle-array
+    description: PWDN/RESET input (active low). Tie high if not wired.
+  start-gpios:
+    type: phandle-array
+    description: START input. If absent, conversions start with the START command.

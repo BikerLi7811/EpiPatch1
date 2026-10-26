@@ -1,0 +1,12 @@
+description: |
+  Maxim MAX30101 / MAX30102 pulse-oximetry front end, driven by the wearable
+  app's own driver (src/drivers/max30101.cpp).
+
+compatible: "wearable,max30101"
+
+include: i2c-device.yaml
+
+properties:
+  int-gpios:
+    type: phandle-array
+    description: Open-drain interrupt output (active low, needs a pull-up).

@@ -1,0 +1,13 @@
+description: |
+  Analog Devices AD5941 electrochemical front end, used by the thigh patch for
+  constant-potential (amperometric) histamine sensing through its own
+  register-level driver (thigh/src/drivers/ad5941.cpp).
+
+compatible: "wearable,ad5941"
+
+include: spi-device.yaml
+
+properties:
+  reset-gpios:
+    type: phandle-array
+    description: RESET input (active low). Optional; the driver also resets over SPI.

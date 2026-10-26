@@ -1,0 +1,13 @@
+description: |
+  ST LSM6DSO / LSM6DSOX / LSM6DSR accelerometer, driven by the wearable app's
+  own driver (src/drivers/lsm6dso.cpp) for tap, impact, free-fall and FIFO.
+
+compatible: "wearable,lsm6dso"
+
+include: i2c-device.yaml
+
+properties:
+  int1-gpios:
+    type: phandle-array
+    required: true
+    description: INT1 output (push-pull, active high).
