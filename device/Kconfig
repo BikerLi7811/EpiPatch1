@@ -1,0 +1,256 @@
+# EpiPatch chest patch -- application options.
+# All thresholds are PLACEHOLDERS to be set from clinical validation.
+# The countdown, release and histamine options live in ../thigh/Kconfig.
+
+menu "EpiPatch chest patch"
+
+config APP_AFE_ON_FLPR
+	def_bool $(dt_nodelabel_enabled,cpuflpr_vpr)
+	select IPC_SERVICE
+	select MBOX
+	help
+	  The ADS1292R is read by the FLPR coprocessor (flpr/), which runs the
+	  heart-rate and breathing triggers and wakes this core only when one
+	  fires. Set by the build: on unless CMake is given -DAFE_CORE=app.
+
+config APP_AFE_STACK_SIZE
+	int "ECG/Bio-Z thread stack size (AFE on this core only)"
+	default 2048
+
+config APP_AFE_THREAD_PRIORITY
+	int "ECG/Bio-Z thread priority (must beat main: ADS1292R has no FIFO)"
+	default 1
+
+config APP_WATCHDOG_MS
+	int "Hardware watchdog timeout [ms]"
+	default 4000
+
+menu "Sampling schedule and ECG/Bio-Z triggers"
+
+config APP_SPOT_PERIOD_S
+	int "Read all sensors every [s]"
+	default 120
+
+config APP_SPOT_WINDOW_S
+	int "...for [s] (PPG, mic and histamine on, decision every second)"
+	default 15
+
+config APP_BURST_S
+	int "After an ECG/Bio-Z trigger, record everything for [s], then analyse"
+	range 10 60
+	default 60
+
+config APP_TRIG_HR_HIGH_BPM
+	int "Heart-rate trigger: at or above [/min]"
+	default 110
+	help
+	  Starts a recording; it is not a finding. Set below the tachycardia
+	  finding (APP_HR_HIGH_BPM) so the recording is already running when
+	  the finding could form.
+
+config APP_TRIG_HR_LOW_BPM
+	int "Heart-rate trigger: at or below [/min]"
+	default 40
+
+config APP_TRIG_RR_HIGH_BPM
+	int "Breathing trigger: at or above [/min]"
+	default 25
+	help
+	  25/min is where NEWS2 scores breathing rate 3.
+
+config APP_TRIG_RR_LOW_BPM
+	int "Breathing trigger: at or below [/min]"
+	default 8
+
+config APP_TRIG_APNEA
+	bool "Breathing trigger: also on apnea"
+	default y
+
+config APP_TRIG_CONFIRM_S
+	int "A trigger condition must last [s]"
+	default 5
+
+config APP_IMU_FIFO_WTM
+	int "IMU FIFO watermark interrupt [samples at 12.5 Hz]"
+	range 8 60
+	default 32
+	help
+	  Wakes this core to update posture and collapse detection while the
+	  schedule is idle (32 samples = every 2.6 s).
+
+config APP_HIST_PERIOD_S
+	int "While reading, ask the thigh patch for fresh histamine every [s]"
+	default 10
+
+endmenu
+
+menu "Link to the thigh patch"
+
+config APP_THIGH_FRESH_S
+	int "Thigh data counts as missing after [s] without a report"
+	default 300
+	help
+	  Without fresh thigh data the chest has no histamine (no exposure
+	  finding) and no thigh fall; it keeps deciding on its own sensors.
+	  The thigh reports at least every 2 minutes and on every request.
+
+endmenu
+
+menu "PPG (MAX30101)"
+
+config APP_PPG_RED_PA
+	int "Red LED current [0.2 mA steps]"
+	range 0 255
+	default 36
+
+config APP_PPG_IR_PA
+	int "IR LED current [0.2 mA steps]"
+	range 0 255
+	default 36
+
+endmenu
+
+menu "Chest IMU (LSM6DSO)"
+
+config APP_TAP_ODR_HZ
+	int "Accelerometer rate [Hz] (ST recommends >= 417 for taps)"
+	default 417
+
+config APP_TAP_THRESHOLD_MG
+	int "Tap threshold [mg] (250 mg steps)"
+	default 1500
+
+config APP_TAP_COUNT
+	int "Taps that cancel a deployment (sent to the thigh patch)"
+	range 2 8
+	default 3
+
+config APP_TAP_WINDOW_MS
+	int "All taps within [ms]"
+	default 1500
+
+config APP_IMPACT_MG
+	int "Impact (wake-up) threshold [mg] (125 mg steps, max 7875)"
+	default 2500
+
+config APP_FREEFALL_MG
+	int "Free-fall threshold [mg] (156..500)"
+	default 312
+
+config APP_FREEFALL_MS
+	int "Free-fall minimum duration [ms]"
+	default 60
+
+config APP_CHEST_UP_AXIS
+	int "Chest IMU axis pointing to the head when standing (0 +X,1 -X,2 +Y,3 -Y,4 +Z,5 -Z)"
+	range 0 5
+	default 0
+
+config APP_COLLAPSE_TRANSITION_MS
+	int "Collapse: trunk tilt 35 -> 60 deg faster than [ms]"
+	default 800
+	help
+	  A faint crosses this band in ~0.2-0.5 s; lying down on purpose,
+	  even briskly, takes about 1 s or more.
+
+config APP_COLLAPSE_STILL_S
+	int "Collapse: then motionless for [s]"
+	default 15
+
+config APP_FALL_CONFIRM_S
+	int "Fall: still lying this long after the impact [s]"
+	default 10
+
+config APP_STILL_MG
+	int "Motionless / at rest below [mg] of dynamic acceleration"
+	default 50
+
+config APP_ACTIVE_MG
+	int "Moving above [mg]: ignore heart/breathing-rate findings (exercise)"
+	default 150
+
+endmenu
+
+menu "Findings and rules"
+
+config APP_WHEEZE_MIN_S
+	int "Wheeze finding: wheeze heard in at least this many seconds..."
+	range 1 8
+	default 3
+	help
+	  A single detection is not a finding: the wheeze CNN flags about a
+	  quarter of normal breath cycles (0.75 specificity on ICBHI).
+
+config APP_WHEEZE_WINDOW_S
+	int "...within this window [s]"
+	default 60
+
+config APP_WHEEZE_RECENT_S
+	int "Wheeze finding holds for [s] after the repeat rule was last met"
+	default 60
+
+config APP_RR_HIGH_BPM
+	int "Fast breathing at or above [/min]"
+	default 28
+
+config APP_RR_HIGH_HOLD_S
+	int "...for [s]"
+	default 30
+
+config APP_RR_LOW_BPM
+	int "Slow breathing at or below [/min]"
+	default 8
+
+config APP_RR_LOW_HOLD_S
+	int "...for [s]"
+	default 15
+
+config APP_APNEA_S
+	int "Apnea: no breath for [s]"
+	default 20
+
+config APP_HR_HIGH_BPM
+	int "Tachycardia at or above [/min]"
+	default 120
+
+config APP_HR_RISE_BPM
+	int "...and at least this far above the resting baseline [/min]"
+	default 40
+
+config APP_HR_HOLD_S
+	int "...for [s]"
+	default 60
+
+config APP_PI_DROP_PCT
+	int "Perfusion drop: PI at or below this % of baseline"
+	default 50
+
+config APP_PI_HOLD_S
+	int "...for [s]"
+	default 30
+
+config APP_HIST_EXPOSURE_MIN
+	int "Elevated histamine (from the thigh) counts as exposure for [min]"
+	default 60
+	help
+	  Plasma histamine peaks 5-10 min after exposure and is back to
+	  baseline by 15-60 min (Schwartz 1989), while food reactions reach
+	  the airway or circulation in about 30 min (Pumphrey 2000).
+
+config APP_RULE_EXPOSURE
+	bool "Rule A: histamine AND (respiratory OR cardiovascular finding)"
+	default y
+
+config APP_RULE_RESP_COLLAPSE
+	bool "Rule B: respiratory finding AND collapse/fall (no histamine needed)"
+	default y
+
+endmenu
+
+module = APP
+module-str = app
+source "subsys/logging/Kconfig.template.log_config"
+
+endmenu
+
+source "Kconfig.zephyr"
