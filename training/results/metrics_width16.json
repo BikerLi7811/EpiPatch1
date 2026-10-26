@@ -1,0 +1,14 @@
+{
+  "test_window_auc": 0.6583450794461535,
+  "test_cycle_auc": 0.7594190445502608,
+  "threshold": 0.8845599889755249,
+  "test_cycle_sensitivity": 0.6907020872865275,
+  "test_cycle_specificity": 0.756513926325247,
+  "test_cycles": 2753,
+  "test_wheeze_cycles": 527,
+  "width": 16,
+  "params": 14161,
+  "test_cycle_auc_AKGC417L": 0.8181575565117358,
+  "test_cycle_auc_Litt3200": 0.584084434084434,
+  "test_cycle_auc_Meditron": 0.877463614311704
+}
