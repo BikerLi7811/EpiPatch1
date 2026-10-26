@@ -1,0 +1,1 @@
+wearable	Project-local bindings of the wearable anaphylaxis monitor
