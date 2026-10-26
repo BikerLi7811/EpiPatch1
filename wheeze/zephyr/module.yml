@@ -1,0 +1,4 @@
+name: wheeze
+build:
+  cmake: .
+  kconfig: Kconfig
