@@ -1,0 +1,140 @@
+/*
+ * Wiring of the wearable on an nRF54L15 DK. PIN NUMBERS ARE PLACEHOLDERS:
+ * on your own PCB, re-check them against the nRF54L15 pin table (SPI SCK /
+ * TWIM SCL must sit on the port's dedicated clock pins; SAADC inputs are
+ * AIN0..7 = P1.04..P1.07, P1.11..P1.14). Several of these collide with DK
+ * LEDs/buttons/VCOM; the DK peripherals using them are disabled below.
+ *
+ *  PDM mic        CLK P1.12  DATA P1.13               (pdm20)
+ *  ADS1292R       SCK P1.03  MOSI P1.08  MISO P1.09  CS P1.10   (spi21, 500 kHz)
+ *                 DRDY P1.07  PWDN/RESET P0.01  START P0.02
+ *                 Read by the FLPR coprocessor by default (afe_flpr.overlay,
+ *                 added by CMakeLists.txt); the node below is used only when
+ *                 building with -DAFE_CORE=app.
+ *  I2C            SCL P1.04  SDA P1.05 (4.7k pull-ups)  (i2c22, 400 kHz)
+ *    MAX30101     0x57, INT P0.03 (open drain)
+ *    LSM6DSO chest 0x6A (SA0 low),  INT1 P0.05
+ *  Buzzer         P1.14 (optional; mirrors the thigh patch's countdown)
+ *  Status LED     DK LED0 (P2.09)
+ *  Radio          Bluetooth LE link to the thigh patch
+ *
+ * The histamine sensor (AD5941), the thigh IMU, the vibration motor and the
+ * release motor are on the thigh patch: ../../thigh/boards/.
+ */
+
+/ {
+	aliases {
+		wheeze-mic = &pdm20;
+	};
+
+	zephyr,user {
+		alert-gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
+		status-led-gpios = <&gpio2 9 GPIO_ACTIVE_HIGH>;
+	};
+};
+
+&pinctrl {
+	pdm20_default_alt: pdm20_default_alt {
+		group1 {
+			psels = <NRF_PSEL(PDM_CLK, 1, 12)>,
+				<NRF_PSEL(PDM_DIN, 1, 13)>;
+		};
+	};
+
+	spi21_default_alt: spi21_default_alt {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 1, 3)>,
+				<NRF_PSEL(SPIM_MOSI, 1, 8)>,
+				<NRF_PSEL(SPIM_MISO, 1, 9)>;
+		};
+	};
+
+	spi21_sleep_alt: spi21_sleep_alt {
+		group1 {
+			psels = <NRF_PSEL(SPIM_SCK, 1, 3)>,
+				<NRF_PSEL(SPIM_MOSI, 1, 8)>,
+				<NRF_PSEL(SPIM_MISO, 1, 9)>;
+			low-power-enable;
+		};
+	};
+
+	i2c22_default_alt: i2c22_default_alt {
+		group1 {
+			psels = <NRF_PSEL(TWIM_SCL, 1, 4)>,
+				<NRF_PSEL(TWIM_SDA, 1, 5)>;
+		};
+	};
+
+	i2c22_sleep_alt: i2c22_sleep_alt {
+		group1 {
+			psels = <NRF_PSEL(TWIM_SCL, 1, 4)>,
+				<NRF_PSEL(TWIM_SDA, 1, 5)>;
+			low-power-enable;
+		};
+	};
+};
+
+/* DK peripherals sitting on pins we use */
+&uart20 {
+	status = "disabled";
+};
+
+&uart30 {
+	status = "disabled";
+};
+
+&pdm20 {
+	status = "okay";
+	pinctrl-0 = <&pdm20_default_alt>;
+	pinctrl-names = "default";
+	clock-source = "PCLK32M";
+};
+
+&spi21 {
+	status = "okay";
+	pinctrl-0 = <&spi21_default_alt>;
+	pinctrl-1 = <&spi21_sleep_alt>;
+	pinctrl-names = "default", "sleep";
+	cs-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+
+	ads1292r: ads1292r@0 {
+		compatible = "wearable,ads1292r";
+		reg = <0>;
+		spi-max-frequency = <500000>;
+		drdy-gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
+		pwdn-gpios = <&gpio0 1 GPIO_ACTIVE_LOW>;
+		start-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
+	};
+};
+
+&i2c22 {
+	status = "okay";
+	clock-frequency = <I2C_BITRATE_FAST>;
+	pinctrl-0 = <&i2c22_default_alt>;
+	pinctrl-1 = <&i2c22_sleep_alt>;
+	pinctrl-names = "default", "sleep";
+
+	ppg: max30101@57 {
+		compatible = "wearable,max30101";
+		reg = <0x57>;
+		int-gpios = <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+	};
+
+	imu_chest: lsm6dso@6a {
+		compatible = "wearable,lsm6dso";
+		reg = <0x6a>;
+		int1-gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
+	};
+};
+
+&gpiote20 {
+	status = "okay";
+};
+
+&gpiote30 {
+	status = "okay";
+};
+
+&wdt31 {
+	status = "okay";
+};
