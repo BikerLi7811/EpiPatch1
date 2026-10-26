@@ -1,0 +1,175 @@
+# EpiPatch thigh patch -- application options.
+# All thresholds and the sensor calibration are PLACEHOLDERS.
+
+menu "EpiPatch thigh patch"
+
+config APP_WATCHDOG_MS
+	int "Hardware watchdog timeout [ms]"
+	default 4000
+
+menu "Histamine (AD5941, constant-potential amperometry)"
+
+config APP_HIST_VZERO_MV
+	int "Sense-electrode potential Vzero [mV] (200..2366)"
+	default 1100
+
+config APP_HIST_BIAS_MV
+	int "Sensor bias, reference minus sense electrode [mV]"
+	default 0
+	help
+	  Set from the histamine sensor's datasheet (the potential its
+	  working electrode needs). 0 is a placeholder.
+
+config APP_HIST_RTIA
+	int "Low-power TIA gain resistor (LPTIARTIA code: 24 = 196 kohm, 26 = 512 kohm)"
+	range 1 26
+	default 24
+	help
+	  196 kohm gives about +-6 uA full scale with the default PGA gain of
+	  1.5; use a larger one for nA-level sensors.
+
+config APP_HIST_PGA
+	int "ADC PGA gain code (0 = 1, 1 = 1.5, 2 = 2, 3 = 4, 4 = 9)"
+	range 0 4
+	default 1
+
+config APP_HIST_AVERAGES
+	int "ADC results averaged per reading"
+	range 1 64
+	default 16
+
+config APP_HIST_OFFSET_NA
+	int "Sensor current at zero histamine [nA]"
+	default 0
+
+config APP_HIST_NM_PER_UA
+	int "Calibration slope [nM histamine per uA]"
+	default 1000
+
+config APP_HIST_MIN_NA
+	int "Reading valid from [nA] (below: open or failed sensor)"
+	default -500
+
+config APP_HIST_MAX_NA
+	int "Reading valid up to [nA] (above: saturated)"
+	default 6000
+
+config APP_HIST_RISE_NM
+	int "Histamine elevated: at least this far above baseline [nM]"
+	default 10
+
+config APP_HIST_RATIO_PCT
+	int "...and at least this % of baseline"
+	default 150
+
+config APP_HIST_ABS_NM
+	int "Histamine elevated at or above this absolute level [nM] (0 = off)"
+	default 0
+
+config APP_HIST_WARMUP_S
+	int "Sensor settling / first baseline [s]"
+	default 300
+
+config APP_HIST_CONFIRM
+	int "Consecutive readings to change the elevated state"
+	default 2
+
+config APP_HIST_IDLE_PERIOD_S
+	int "Read histamine every [s] (and report to the chest)"
+	default 120
+
+config APP_HIST_ACTIVE_PERIOD_S
+	int "...every [s] while the chest is reading or a countdown runs"
+	default 10
+
+endmenu
+
+menu "Thigh IMU (LSM6DSO)"
+
+config APP_TAP_ODR_HZ
+	int "Accelerometer rate [Hz] (ST recommends >= 417 for taps)"
+	default 417
+
+config APP_TAP_THRESHOLD_MG
+	int "Tap threshold [mg] (250 mg steps)"
+	default 1500
+
+config APP_TAP_COUNT
+	int "Taps that cancel the countdown"
+	range 2 8
+	default 3
+
+config APP_TAP_WINDOW_MS
+	int "All taps within [ms]"
+	default 1500
+
+config APP_IMPACT_MG
+	int "Impact (wake-up) threshold [mg] (125 mg steps, max 7875)"
+	default 2500
+
+config APP_FREEFALL_MG
+	int "Free-fall threshold [mg] (156..500)"
+	default 312
+
+config APP_FREEFALL_MS
+	int "Free-fall minimum duration [ms]"
+	default 60
+
+config APP_THIGH_UP_AXIS
+	int "IMU axis pointing to the hip when standing (0 +X,1 -X,2 +Y,3 -Y,4 +Z,5 -Z)"
+	range 0 5
+	default 0
+
+config APP_FALL_CONFIRM_S
+	int "Fall: thigh horizontal and still this long after the impact [s]"
+	default 10
+
+config APP_STILL_MG
+	int "Motionless below [mg] of dynamic acceleration"
+	default 50
+
+config APP_IMU_FIFO_WTM
+	int "IMU FIFO watermark interrupt [samples at 12.5 Hz]"
+	range 8 60
+	default 32
+
+endmenu
+
+menu "Countdown and release"
+
+config APP_COUNTDOWN_S
+	int "Vibration countdown before the release motor runs [s]"
+	default 20
+
+config APP_COOLDOWN_S
+	int "After a cancel, ignore non-severe decisions for [s]"
+	default 300
+
+config APP_MAX_DEPLOYMENTS
+	int "Doses (after the last one the patch does nothing more)"
+	range 1 4
+	default 1
+
+config APP_REDOSE_S
+	int "Earliest next dose if still triggered [s] (only with more than one dose)"
+	default 600
+
+config APP_MOTOR_RUN_MS
+	int "Release motor on-time limit [ms]"
+	default 3000
+
+config APP_MOTOR_REQUIRE_ENDSTOP
+	bool "Only a closed end-stop counts as a completed stroke"
+	help
+	  Needs endstop-gpios in zephyr,user. Without it a stroke that ends on
+	  the timer is reported as a motor fault.
+
+endmenu
+
+module = APP
+module-str = app
+source "subsys/logging/Kconfig.template.log_config"
+
+endmenu
+
+source "Kconfig.zephyr"
