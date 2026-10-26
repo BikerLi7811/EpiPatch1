@@ -1,0 +1,21 @@
+feature,description,importance,lr_weight
+hr,"Heart rate [/min], 30 s average",0.0005,-0.029200000688433647
+hr_d,Heart rate above resting baseline,0.0032,0.4431000053882599
+hr_trend,Heart-rate change over 5 min,0.001,0.5878999829292297
+rr,"Breathing rate [/min], 30 s average",0.0002,0.5831000208854675
+rr_d,Breathing rate above resting baseline,0.0005,-0.5056999921798706
+apnea60,Apnea seconds in the last minute,0.0,-1.475000023841858
+pi_ratio,Perfusion index / baseline,0.0277,-1.27839994430542
+pi_trend,Perfusion-ratio change over 5 min,0.001,0.16459999978542328
+spo2,"SpO2 estimate, 30 s average",0.0011,-0.6266999840736389
+wz60,"Wheeze detections, last 1 min",0.0043,1.2405999898910522
+wz300,"Wheeze detections, last 5 min",0.0002,-1.033400058746338
+act60,"Activity [g], 1 min average",0.0018,-3.794800043106079
+still_min,Minutes since last movement (capped 15),0.0124,1.596500039100647
+collapsed,Collapse flag,0.0001,-0.08640000224113464
+down300,Collapse or fall in the last 5 min,0.0,-0.07479999959468842
+hist_ratio,Histamine / baseline,0.0505,1.6031999588012695
+hist_slope,Histamine-ratio change over 5 min,0.0002,0.2337999939918518
+hr_ok,ECG valid,0.0,0.010300000198185444
+ppg_ok,PPG valid,0.0,-0.13089999556541443
+hist_ok,Histamine sensor valid,0.0007,-0.2612999975681305

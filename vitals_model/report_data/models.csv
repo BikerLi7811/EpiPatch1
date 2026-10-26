@@ -1,0 +1,5 @@
+model,sensitivity,false_alarm_rate,ttd_median_s,ttd_p90_s,auc,avg_precision,threshold,params,flash_bytes,compute,shift_sensitivity,shift_false_alarm_rate,shift_ttd_median_s
+Rules engine (firmware),0.7843,0.004,112.0,288.0,,,,,,Kconfig thresholds,0.6933,0.019,123.0
+Logistic regression,0.8301,0.0283,120.0,304.0,0.9857,0.9366,0.995,61,244,20 MAC + sigmoid,0.684,0.0021,234.0
+Decision tree (depth 6),0.9869,0.1093,91.0,178.0,0.9898,0.9465,0.995,85,680,<= 6 compares,0.9816,0.0823,100.0
+Gradient-boosted trees,0.9542,0.0081,140.0,240.0,0.9947,0.972,0.99,4500,36000,150 trees x <= 4 compares,0.9325,0.0084,160.0

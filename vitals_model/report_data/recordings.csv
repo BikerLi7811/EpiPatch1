@@ -1,0 +1,14 @@
+scenario,label,anaphylaxis,total,train,validation,test
+anaphylaxis_resp,"Anaphylaxis, respiratory",yes,253,159,49,45
+anaphylaxis_cv,"Anaphylaxis, cardiovascular",yes,212,134,41,37
+anaphylaxis_severe,"Anaphylaxis, severe with collapse",yes,202,118,38,46
+anaphylaxis_low_hist,"Anaphylaxis, weak histamine signal",yes,102,51,26,25
+normal_day,Normal day,no,293,175,55,63
+sleep,Sleep (half with apnea),no,123,81,18,24
+exercise,Exercise and recovery,no,190,116,46,28
+asthma,Asthma attack,no,169,99,35,35
+allergy_mild,"Mild allergy, skin only",no,141,78,27,36
+vasovagal,Fainting (vasovagal),no,97,62,19,16
+fall,Accidental fall,no,84,48,15,21
+panic,Panic attack,no,83,51,18,14
+hist_artifact,Histamine sensor artifact,no,51,28,13,10

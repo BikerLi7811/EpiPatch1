@@ -1,0 +1,124 @@
+model,threshold,sensitivity,false_alarm_rate
+Logistic regression,0.05,1.0,0.9474
+Logistic regression,0.075,1.0,0.9231
+Logistic regression,0.1,1.0,0.8704
+Logistic regression,0.125,1.0,0.8097
+Logistic regression,0.15,1.0,0.7045
+Logistic regression,0.175,1.0,0.6478
+Logistic regression,0.2,1.0,0.583
+Logistic regression,0.225,1.0,0.5304
+Logistic regression,0.25,1.0,0.4615
+Logistic regression,0.275,1.0,0.4332
+Logistic regression,0.3,1.0,0.413
+Logistic regression,0.325,0.9935,0.3968
+Logistic regression,0.35,0.9935,0.3887
+Logistic regression,0.375,0.9935,0.3806
+Logistic regression,0.4,0.9935,0.3765
+Logistic regression,0.425,0.9935,0.3765
+Logistic regression,0.45,0.9935,0.3603
+Logistic regression,0.475,0.9935,0.3522
+Logistic regression,0.5,0.9935,0.3522
+Logistic regression,0.525,0.9935,0.3401
+Logistic regression,0.55,0.9935,0.336
+Logistic regression,0.575,0.9869,0.336
+Logistic regression,0.6,0.9869,0.3239
+Logistic regression,0.625,0.9869,0.3158
+Logistic regression,0.65,0.9869,0.3117
+Logistic regression,0.675,0.9869,0.2955
+Logistic regression,0.7,0.9869,0.2874
+Logistic regression,0.725,0.9869,0.2753
+Logistic regression,0.75,0.9869,0.2672
+Logistic regression,0.775,0.9869,0.2551
+Logistic regression,0.8,0.9869,0.2429
+Logistic regression,0.825,0.9804,0.2267
+Logistic regression,0.85,0.9673,0.2105
+Logistic regression,0.875,0.9673,0.1903
+Logistic regression,0.9,0.9673,0.17
+Logistic regression,0.925,0.9608,0.1336
+Logistic regression,0.95,0.9412,0.0891
+Logistic regression,0.97,0.9346,0.0607
+Logistic regression,0.98,0.8954,0.0445
+Logistic regression,0.99,0.8824,0.0364
+Logistic regression,0.995,0.8301,0.0283
+Decision tree (depth 6),0.05,1.0,0.8907
+Decision tree (depth 6),0.075,1.0,0.8907
+Decision tree (depth 6),0.1,1.0,0.8907
+Decision tree (depth 6),0.125,1.0,0.8907
+Decision tree (depth 6),0.15,1.0,0.8907
+Decision tree (depth 6),0.175,1.0,0.8178
+Decision tree (depth 6),0.2,1.0,0.6154
+Decision tree (depth 6),0.225,1.0,0.6154
+Decision tree (depth 6),0.25,1.0,0.6154
+Decision tree (depth 6),0.275,1.0,0.6032
+Decision tree (depth 6),0.3,1.0,0.6032
+Decision tree (depth 6),0.325,1.0,0.6032
+Decision tree (depth 6),0.35,1.0,0.6032
+Decision tree (depth 6),0.375,1.0,0.6032
+Decision tree (depth 6),0.4,1.0,0.6032
+Decision tree (depth 6),0.425,1.0,0.6032
+Decision tree (depth 6),0.45,1.0,0.6032
+Decision tree (depth 6),0.475,1.0,0.5951
+Decision tree (depth 6),0.5,1.0,0.5951
+Decision tree (depth 6),0.525,1.0,0.5951
+Decision tree (depth 6),0.55,1.0,0.583
+Decision tree (depth 6),0.575,1.0,0.583
+Decision tree (depth 6),0.6,1.0,0.583
+Decision tree (depth 6),0.625,1.0,0.3927
+Decision tree (depth 6),0.65,1.0,0.3927
+Decision tree (depth 6),0.675,1.0,0.3927
+Decision tree (depth 6),0.7,1.0,0.3927
+Decision tree (depth 6),0.725,1.0,0.3927
+Decision tree (depth 6),0.75,1.0,0.3927
+Decision tree (depth 6),0.775,0.9935,0.3117
+Decision tree (depth 6),0.8,0.9935,0.2186
+Decision tree (depth 6),0.825,0.9935,0.2186
+Decision tree (depth 6),0.85,0.9935,0.2186
+Decision tree (depth 6),0.875,0.9935,0.2146
+Decision tree (depth 6),0.9,0.9935,0.2024
+Decision tree (depth 6),0.925,0.9935,0.1457
+Decision tree (depth 6),0.95,0.9869,0.1255
+Decision tree (depth 6),0.97,0.9869,0.1255
+Decision tree (depth 6),0.98,0.9869,0.1174
+Decision tree (depth 6),0.99,0.9869,0.1093
+Decision tree (depth 6),0.995,0.9869,0.1093
+Gradient-boosted trees,0.05,1.0,0.4818
+Gradient-boosted trees,0.075,1.0,0.4291
+Gradient-boosted trees,0.1,1.0,0.3684
+Gradient-boosted trees,0.125,1.0,0.3441
+Gradient-boosted trees,0.15,1.0,0.3158
+Gradient-boosted trees,0.175,1.0,0.2915
+Gradient-boosted trees,0.2,1.0,0.2632
+Gradient-boosted trees,0.225,1.0,0.247
+Gradient-boosted trees,0.25,1.0,0.2348
+Gradient-boosted trees,0.275,1.0,0.2227
+Gradient-boosted trees,0.3,1.0,0.2146
+Gradient-boosted trees,0.325,1.0,0.1984
+Gradient-boosted trees,0.35,1.0,0.1903
+Gradient-boosted trees,0.375,1.0,0.1862
+Gradient-boosted trees,0.4,1.0,0.1781
+Gradient-boosted trees,0.425,1.0,0.1781
+Gradient-boosted trees,0.45,1.0,0.17
+Gradient-boosted trees,0.475,1.0,0.166
+Gradient-boosted trees,0.5,1.0,0.1538
+Gradient-boosted trees,0.525,1.0,0.1457
+Gradient-boosted trees,0.55,0.9935,0.1417
+Gradient-boosted trees,0.575,0.9935,0.1417
+Gradient-boosted trees,0.6,0.9935,0.1377
+Gradient-boosted trees,0.625,0.9935,0.1336
+Gradient-boosted trees,0.65,0.9935,0.1296
+Gradient-boosted trees,0.675,0.9935,0.1255
+Gradient-boosted trees,0.7,0.9935,0.1134
+Gradient-boosted trees,0.725,0.9935,0.0972
+Gradient-boosted trees,0.75,0.9935,0.0931
+Gradient-boosted trees,0.775,0.9935,0.0769
+Gradient-boosted trees,0.8,0.9935,0.0526
+Gradient-boosted trees,0.825,0.9869,0.0486
+Gradient-boosted trees,0.85,0.9869,0.0405
+Gradient-boosted trees,0.875,0.9804,0.0324
+Gradient-boosted trees,0.9,0.9804,0.0283
+Gradient-boosted trees,0.925,0.9739,0.0283
+Gradient-boosted trees,0.95,0.9739,0.0121
+Gradient-boosted trees,0.97,0.9739,0.0121
+Gradient-boosted trees,0.98,0.9739,0.0121
+Gradient-boosted trees,0.99,0.9542,0.0081
+Gradient-boosted trees,0.995,0.9346,0.004

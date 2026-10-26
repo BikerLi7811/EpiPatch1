@@ -1,0 +1,14 @@
+scenario,label,anaphylaxis,n_test,metric,rules,logistic,tree,gbt
+anaphylaxis_resp,"Anaphylaxis, respiratory",yes,45,detected,0.9778,0.9333,1.0,1.0
+anaphylaxis_cv,"Anaphylaxis, cardiovascular",yes,37,detected,0.7297,0.9189,1.0,1.0
+anaphylaxis_severe,"Anaphylaxis, severe with collapse",yes,46,detected,1.0,0.9783,1.0,0.9783
+anaphylaxis_low_hist,"Anaphylaxis, weak histamine signal",yes,25,detected,0.12,0.24,0.92,0.76
+normal_day,Normal day,no,63,false alarm,0.0,0.0,0.0159,0.0
+sleep,Sleep (half with apnea),no,24,false alarm,0.0,0.0,0.0833,0.0
+exercise,Exercise and recovery,no,28,false alarm,0.0,0.0,0.0,0.0
+asthma,Asthma attack,no,35,false alarm,0.0286,0.0,0.2,0.0
+allergy_mild,"Mild allergy, skin only",no,36,false alarm,0.0,0.1944,0.3056,0.0278
+vasovagal,Fainting (vasovagal),no,16,false alarm,0.0,0.0,0.0,0.0
+fall,Accidental fall,no,21,false alarm,0.0,0.0,0.0476,0.0476
+panic,Panic attack,no,14,false alarm,0.0,0.0,0.2857,0.0
+hist_artifact,Histamine sensor artifact,no,10,false alarm,0.0,0.0,0.1,0.0
