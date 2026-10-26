@@ -1,0 +1,11 @@
+mainmenu "AFE coprocessor (FLPR)"
+
+config FLPR_RECORD_S
+	int "Raw ECG + Bio-Z kept per recording [s]"
+	range 10 60
+	default 60
+	help
+	  6 bytes per sample at 125 Hz: 60 s takes 45 kB of the coprocessor's
+	  96 kB of RAM.
+
+source "Kconfig.zephyr"
