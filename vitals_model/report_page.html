@@ -1,0 +1,562 @@
+<style>
+.vr { display: flex; flex-direction: column; gap: var(--cds-gap-xl); font-family: var(--font-anthropic-sans); max-width: 72rem; margin-inline: auto; }
+.vr h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.vr h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+.vr h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.vr p { margin: 0; max-width: 65ch; line-height: 1.5; }
+.vr-head { display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
+.vr-take { font-size: var(--cds-font-size-body); }
+.vr-take b, .vr-tile b { font-weight: var(--cds-font-weight-medium); }
+.vr-warn { color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.vr-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cds-gap-md); }
+.vr-tile, .vr-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: flex; flex-direction: column; gap: var(--cds-gap-sm); min-width: 0; }
+.vr-tl { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.vr-big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; min-height: 1.3em; }
+.vr-tn { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.vr-sec { display: flex; flex-direction: column; gap: var(--cds-gap-md); }
+.vr-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--cds-gap-md); }
+.vr-note { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.vr-chart { position: relative; min-height: 120px; }
+.vr-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.vr-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.vr-legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.vr-legend i.ring { background: transparent !important; border: 2px solid currentColor; width: 8px; height: 8px; }
+.vr-legend i.bar { border-radius: 2px; height: 8px; width: 14px; }
+.vr-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; white-space: nowrap; z-index: 2; }
+.vr-tip .h { color: var(--cds-text-secondary); margin-bottom: 2px; }
+.vr-tip .l { display: flex; align-items: center; gap: 6px; }
+.vr-tip .l i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.vr-svg text { fill: var(--color-fg-muted); font-size: var(--cds-font-size-caption); font-family: var(--font-anthropic-sans); }
+.vr-svg .grid line { stroke: var(--cds-chart-grid); }
+.vr-svg .axis path, .vr-svg .axis line { stroke: var(--cds-chart-axis); }
+.vr-tablebox { overflow: auto; max-width: 100%; }
+.vr table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.vr th { text-align: right; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); padding: 6px 8px; border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
+.vr td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--color-border-line); white-space: nowrap; }
+.vr th:first-child, .vr td:first-child { text-align: left; white-space: normal; min-width: 10rem; }
+.vr td.vr-heat { border-radius: 4px; }
+.vr-sw { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+.vr-bars { display: flex; flex-direction: column; gap: var(--cds-gap-sm); }
+.vr-bar-row { display: flex; flex-direction: column; gap: 3px; font-size: var(--cds-font-size-caption); }
+.vr-bar-top { display: flex; justify-content: space-between; gap: var(--cds-gap-sm); }
+.vr-bar-top span:last-child { font-variant-numeric: tabular-nums; color: var(--color-fg-muted); }
+.vr-bar-track { height: 8px; }
+.vr-bar-fill { height: 8px; border-radius: 4px; }
+.vr-btns { display: flex; flex-wrap: wrap; gap: var(--cds-gap-xs); }
+.vr-btns button { font: inherit; font-size: var(--cds-font-size-caption); padding: 4px 10px; border-radius: 999px; border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); cursor: pointer; }
+.vr-btns button[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+.vr-btns button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+.vr-fail { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: inherit; height: 100%; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.vr-fail span { width: .375rem; height: .375rem; border-radius: 50%; background: var(--color-bad); }
+.vr-method { display: flex; flex-direction: column; gap: var(--cds-gap-sm); font-size: var(--cds-font-size-body); }
+.vr-method ul { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 4px; max-width: 70ch; line-height: 1.5; }
+[data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+[data-dash-source-state=empty] { color: transparent; }
+</style>
+
+<div class="vr">
+  <header class="vr-head" id="top">
+    <h1>Anaphylaxis model vs. firmware rules</h1>
+    <p class="vr-take">On held-out simulated recordings, gradient-boosted trees caught
+      <b class="vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="sensitivity" data-where="model=Gradient-boosted trees">—</b>
+      of anaphylaxis episodes and raised a false alarm in
+      <b class="vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="false_alarm_rate" data-where="model=Gradient-boosted trees">—</b>
+      of other recordings. The rule engine now in the firmware caught
+      <b class="vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="sensitivity" data-where="model=Rules engine (firmware)">—</b>
+      with false alarms in
+      <b class="vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="false_alarm_rate" data-where="model=Rules engine (firmware)">—</b>.</p>
+    <p class="vr-warn">All recordings are simulated from textbook physiology, not measured on people. These numbers compare methods; they say nothing about clinical accuracy.</p>
+  </header>
+
+  <div class="vr-tiles">
+    <div class="vr-tile"><div class="vr-tl">Boosted trees: episodes caught</div>
+      <div class="vr-big vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="sensitivity" data-where="model=Gradient-boosted trees">—</div>
+      <div class="vr-tn">Firmware rules: <b class="vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="sensitivity" data-where="model=Rules engine (firmware)">—</b></div></div>
+    <div class="vr-tile"><div class="vr-tl">Boosted trees: false-alarm recordings</div>
+      <div class="vr-big vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="false_alarm_rate" data-where="model=Gradient-boosted trees">—</div>
+      <div class="vr-tn">Firmware rules: <b class="vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="false_alarm_rate" data-where="model=Rules engine (firmware)">—</b></div></div>
+    <div class="vr-tile"><div class="vr-tl">Boosted trees: median time to alarm</div>
+      <div class="vr-big vr-fill dash-skeleton" data-fmt="secs" data-source="models" data-field="ttd_median_s" data-where="model=Gradient-boosted trees">—</div>
+      <div class="vr-tn">Firmware rules: <b class="vr-fill dash-skeleton" data-fmt="secs" data-source="models" data-field="ttd_median_s" data-where="model=Rules engine (firmware)">—</b></div></div>
+    <div class="vr-tile"><div class="vr-tl">Harder world: boosted trees catch</div>
+      <div class="vr-big vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="shift_sensitivity" data-where="model=Gradient-boosted trees">—</div>
+      <div class="vr-tn">Firmware rules: <b class="vr-fill dash-skeleton" data-fmt="pct" data-source="models" data-field="shift_sensitivity" data-where="model=Rules engine (firmware)">—</b></div></div>
+  </div>
+
+  <section class="vr-sec" id="tradeoff">
+    <div class="vr-card">
+      <h2>Catching episodes vs. false alarms</h2>
+      <p class="vr-note">Each line sweeps one model's alarm threshold on the test recordings. Dots mark the threshold chosen on validation so the model raises no more false alarms than the rules. Up and to the left is better.</p>
+      <div class="vr-legend vr-models-legend"></div>
+      <div class="vr-chart dash-skeleton" id="c-tradeoff" data-source="tradeoff models" style="min-height:320px"></div>
+    </div>
+  </section>
+
+  <section class="vr-sec" id="models">
+    <div class="vr-card">
+      <h2>Model comparison</h2>
+      <p class="vr-note">Test set at the chosen threshold. Episodes caught = anaphylaxis recordings alarmed after exposure. False alarms = share of non-anaphylaxis recordings (and pre-exposure time) with any alarm. AUC is per second. Flash is an estimate for an on-device port.</p>
+      <div class="vr-tablebox">
+        <table id="t-models" data-source="models" data-row-key="model">
+          <thead><tr>
+            <th data-field="model">Model</th><th data-field="sensitivity">Episodes caught</th><th data-field="false_alarm_rate">False alarms</th>
+            <th data-field="ttd_median_s">Median time to alarm</th><th data-field="ttd_p90_s">90th pct time</th><th data-field="auc">AUC</th>
+            <th data-field="avg_precision">Avg. precision</th><th data-field="threshold">Threshold</th><th data-field="params">Parameters</th>
+            <th data-field="flash_bytes">Flash</th><th data-field="compute">Compute per second</th>
+          </tr></thead><tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="vr-sec" id="scenarios">
+    <div class="vr-card">
+      <h2>By situation</h2>
+      <p class="vr-note">Anaphylaxis rows show the share caught; the others show the share with a false alarm. Darker red is worse. The rules include the literature-review fixes: high histamine counts as exposure for an hour, and a wheeze finding needs wheeze in at least three seconds within a minute. That removed their false alarms on fainting, sensor artifacts and mild allergy. They still miss most episodes where the histamine sensor barely responds.</p>
+      <div class="vr-tablebox">
+        <table id="t-scen" data-source="scenarios" data-row-key="scenario">
+          <thead><tr>
+            <th data-field="label">Situation</th><th data-field="n_test">Test recordings</th><th data-field="metric">Shows</th>
+            <th data-field="rules">Rules</th><th data-field="logistic">Logistic</th><th data-field="tree">Tree</th><th data-field="gbt">Boosted trees</th>
+          </tr></thead><tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="vr-sec" id="speed">
+    <div class="vr-card">
+      <h2>Time to alarm</h2>
+      <p class="vr-note">Seconds from the start of organ involvement (breathing or circulation) to the alarm, one dot per caught episode. Negative means the alarm came earlier, while only histamine was rising. Boxes span the middle half; the bar inside is the median.</p>
+      <div class="vr-chart dash-skeleton" id="c-ttd" data-source="detection_time models" style="min-height:220px"></div>
+    </div>
+  </section>
+
+  <div class="vr-grid">
+    <section class="vr-card" id="shift">
+      <h2>Does it hold up in a harder world?</h2>
+      <p class="vr-note">A separate simulated set, never used for training or thresholds: weaker wheeze detector with three times the false detections, noisier sensors, smaller histamine rises.</p>
+      <div class="vr-legend"><span><i class="ring" style="color:var(--color-fg-muted)"></i>Standard test set</span><span><i style="background:var(--color-fg-muted)"></i>Harder world</span></div>
+      <h3>Episodes caught</h3>
+      <div class="vr-chart dash-skeleton" id="c-shift-sens" data-source="models" style="min-height:150px"></div>
+      <h3>False alarms</h3>
+      <div class="vr-chart dash-skeleton" id="c-shift-fa" data-source="models" style="min-height:150px"></div>
+    </section>
+    <section class="vr-card" id="features">
+      <h2>What the boosted trees rely on</h2>
+      <p class="vr-note">Drop in per-second AUC when one input is shuffled on test data. Histamine and perfusion carry most of the decision.</p>
+      <div class="vr-bars dash-skeleton" id="c-feat" data-source="features" style="min-height:300px"></div>
+    </section>
+  </div>
+
+  <section class="vr-sec" id="timelines">
+    <div class="vr-card">
+      <h2>Five test recordings, minute by minute</h2>
+      <p class="vr-note">Inputs the model sees, its probability, and when the firmware rules alarmed. Chosen where the two disagree where possible. Grey bands mark a collapse or fall.</p>
+      <div class="vr-btns" id="ex-btns" role="group" aria-label="Recording"></div>
+      <div class="vr-legend"><span><i style="background:var(--color-fg-muted)"></i>Vital sign</span><span class="vr-lg-p"></span><span class="vr-lg-r"></span><span><i class="bar" style="background:var(--cds-chart-muted)"></i>Collapse or fall</span></div>
+      <div class="vr-chart dash-skeleton" id="c-tl" data-source="timelines models" style="min-height:560px"></div>
+    </div>
+  </section>
+
+  <div class="vr-grid">
+    <section class="vr-card" id="roc">
+      <h2>Per-second ROC</h2>
+      <p class="vr-note">How well each second is classified, before the 10-second alarm debounce. The x axis is logarithmic.</p>
+      <div class="vr-legend vr-models-legend3"></div>
+      <div class="vr-chart dash-skeleton" id="c-roc" data-source="roc" style="min-height:280px"></div>
+    </section>
+    <section class="vr-card" id="data">
+      <h2>Simulated recordings</h2>
+      <p class="vr-note">One simulated wearer per recording, split by recording.</p>
+      <div class="vr-tablebox">
+        <table id="t-rec" data-source="recordings" data-row-key="scenario">
+          <thead><tr><th data-field="label">Situation</th><th data-field="anaphylaxis">Anaphylaxis</th><th data-field="total">Total</th>
+            <th data-field="train">Train</th><th data-field="validation">Validation</th><th data-field="test">Test</th></tr></thead><tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <section class="vr-card vr-method" id="method">
+    <h2>How this was made</h2>
+    <ul>
+      <li>A simulator produces 40-minute, one-sample-per-second recordings of what the device's detectors report: heart rate (ECG), breathing rate and apnea (Bio-Z), perfusion index and SpO₂ (PPG), wheeze detections (mic, at the error rates measured on ICBHI), activity, collapse and fall flags (IMUs) and histamine. Each recording has a personal baseline, walking bouts, sensor drop-outs and noise.</li>
+      <li>The rule numbers come from the firmware's own C++ engine and histamine monitor, replayed second by second with the Kconfig defaults.</li>
+      <li>The models see twenty causal inputs: averages, changes from a personal resting baseline, five-minute trends, recent wheeze counts, time since movement, and collapse, fall and sensor-validity flags. An alarm needs the probability above threshold for ten seconds in a row.</li>
+      <li>Training, validation (threshold choice) and test recordings never overlap. The harder-world set uses a different random seed and worse sensors.</li>
+      <li>Because the models learn the simulator's version of each situation, real recordings will score lower. Re-train on data from the patch before trusting any threshold.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+(() => {
+  const MODELS = ['Gradient-boosted trees', 'Logistic regression', 'Decision tree (depth 6)', 'Rules engine (firmware)'];
+  const SHORT = {'Gradient-boosted trees': 'Boosted trees', 'Logistic regression': 'Logistic', 'Decision tree (depth 6)': 'Tree', 'Rules engine (firmware)': 'Rules'};
+  const colorOf = (m) => dash.colors[MODELS.indexOf(m)];
+  const pct = d3.format('.0%');
+  const pct1 = d3.format('.1%');
+  const num = (v) => (v === '' || v == null) ? NaN : +v;
+  const secs = (v) => { if (!isFinite(v)) return '—'; const s = Math.round(v); return Math.abs(s) < 120 ? `${s} s` : `${d3.format('.1f')(s / 60)} min`; };
+  const FMT = {pct: (v) => pct(num(v)), secs: (v) => secs(num(v))};
+  let example = null;
+
+  function load(id, els) {
+    const r = dash.data(id);
+    if (r.status === 'ok') { els.forEach((e) => e && e.classList.remove('dash-skeleton')); return r.data; }
+    if (r.status === 'error' || r.status === 'missing' || r.status === 'declined' || r.status === 'connect') {
+      els.forEach((e) => {
+        if (!e) return;
+        e.classList.remove('dash-skeleton');
+        if (e.classList.contains('vr-chart') || e.classList.contains('vr-bars')) {
+          e.textContent = '';
+          const f = document.createElement('div'); f.className = 'vr-fail';
+          f.append(document.createElement('span'), 'Failed to load'); e.append(f);
+        } else e.textContent = '—';
+      });
+    }
+    return null;
+  }
+
+  function newSvg(box, h) {
+    box.textContent = '';
+    const w = Math.max(280, box.clientWidth);
+    const svg = d3.select(box).append('svg').attr('class', 'vr-svg').attr('width', '100%').attr('viewBox', `0 0 ${w} ${h}`);
+    const tip = d3.select(box).append('div').attr('class', 'vr-tip').style('display', 'none');
+    return {svg, tip, w};
+  }
+
+  function showTip(tip, box, x, y, head, lines) {
+    tip.style('display', null).text('');
+    tip.append('div').attr('class', 'h').text(head);
+    lines.forEach(([c, name, val]) => {
+      const l = tip.append('div').attr('class', 'l');
+      if (c) l.append('i').style('background', c);
+      l.append('span').text(`${name}: ${val}`);
+    });
+    const tw = tip.node().offsetWidth, bw = box.clientWidth;
+    const scale = bw / Number(box.querySelector('svg').viewBox.baseVal.width || bw);
+    let left = x * scale + 14; if (left + tw > bw) left = x * scale - tw - 14; if (left < 0) left = 0;
+    tip.style('left', `${left}px`).style('top', `${Math.max(0, y * scale - 10)}px`);
+  }
+
+  function axisStyle(g) { g.attr('font-size', null).attr('font-family', null).attr('class', 'axis'); }
+
+  function legend(el, models) {
+    el.textContent = '';
+    models.forEach((m) => {
+      const s = document.createElement('span'); const i = document.createElement('i');
+      i.style.background = colorOf(m); s.append(i, SHORT[m] === 'Rules' ? 'Firmware rules' : m); el.append(s);
+    });
+  }
+
+  function fills(models) {
+    document.querySelectorAll('.vr-fill').forEach((el) => {
+      if (!models) return;
+      const where = el.dataset.where.split('=')[1];
+      const row = models.find((r) => r.model === where);
+      el.textContent = row ? FMT[el.dataset.fmt](row[el.dataset.field]) : '—';
+    });
+  }
+
+  function drawTradeoff(models, tr) {
+    const box = document.getElementById('c-tradeoff');
+    const H = 320, m = {t: 12, r: 16, b: 44, l: 48};
+    const {svg, tip, w} = newSvg(box, H);
+    const pts = tr.map((d) => ({model: d.model, fa: num(d.false_alarm_rate), s: num(d.sensitivity), thr: num(d.threshold)}));
+    const xmax = Math.min(1, (d3.max(pts, (d) => d.fa) || 1) * 1.04);
+    const x = d3.scaleLinear([0, xmax], [m.l, w - m.r]).nice();
+    const y = d3.scaleLinear([0, 1], [H - m.b, m.t]);
+    svg.append('g').attr('class', 'grid').selectAll('line').data(y.ticks(5)).join('line')
+      .attr('x1', m.l).attr('x2', w - m.r).attr('y1', y).attr('y2', y);
+    svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor(w / 110))).tickFormat(pct)).call(axisStyle);
+    svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(pct)).call(axisStyle).call((g) => g.select('.domain').remove());
+    svg.append('text').attr('x', (m.l + w - m.r) / 2).attr('y', H - 8).attr('text-anchor', 'middle').text('Non-anaphylaxis recordings with a false alarm');
+    svg.append('text').attr('transform', `translate(12,${(m.t + H - m.b) / 2}) rotate(-90)`).attr('text-anchor', 'middle').text('Episodes caught');
+    const line = d3.line().x((d) => x(d.fa)).y((d) => y(d.s));
+    const all = [];
+    MODELS.slice(0, 3).forEach((mod) => {
+      const p = pts.filter((d) => d.model === mod).sort((a, b) => a.fa - b.fa || a.s - b.s);
+      all.push(...p);
+      svg.append('path').attr('d', line(p)).attr('fill', 'none').attr('stroke', colorOf(mod)).attr('stroke-width', 2)
+        .attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round');
+    });
+    const ops = models.map((r) => ({model: r.model, fa: num(r.false_alarm_rate), s: num(r.sensitivity), thr: num(r.threshold), op: true}));
+    svg.append('g').selectAll('circle').data(ops).join('circle').attr('cx', (d) => x(d.fa)).attr('cy', (d) => y(d.s))
+      .attr('r', (d) => d.model.startsWith('Rules') ? 7 : 5).attr('fill', (d) => colorOf(d.model)).attr('stroke', 'var(--color-panel)').attr('stroke-width', 2);
+    all.push(...ops);
+    const dot = svg.append('circle').attr('r', 5).attr('fill', 'none').attr('stroke-width', 2).style('display', 'none');
+    const del = d3.Delaunay.from(all, (d) => x(d.fa), (d) => y(d.s));
+    svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', w - m.l - m.r).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+      .on('pointermove', (ev) => {
+        const [px, py] = d3.pointer(ev); const d = all[del.find(px, py)];
+        dot.style('display', null).attr('cx', x(d.fa)).attr('cy', y(d.s)).attr('stroke', colorOf(d.model));
+        const lines = [[colorOf(d.model), 'Episodes caught', pct1(d.s)], [null, 'False alarms', pct1(d.fa)]];
+        if (isFinite(d.thr)) lines.push([null, 'Threshold', d3.format('.3f')(d.thr)]);
+        showTip(tip, box, x(d.fa), y(d.s), d.op ? `${SHORT[d.model]} · chosen point` : SHORT[d.model], lines);
+      })
+      .on('pointerleave', () => { dot.style('display', 'none'); tip.style('display', 'none'); });
+  }
+
+  function drawModelsTable(models) {
+    const tb = document.querySelector('#t-models tbody'); tb.textContent = '';
+    const f3 = d3.format('.3f'), comma = d3.format(',');
+    models.forEach((r) => {
+      const tr = document.createElement('tr');
+      const td0 = document.createElement('td'); const sw = document.createElement('span'); sw.className = 'vr-sw'; sw.style.background = colorOf(r.model);
+      td0.append(sw, r.model); tr.append(td0);
+      [pct1(num(r.sensitivity)), pct1(num(r.false_alarm_rate)), secs(num(r.ttd_median_s)), secs(num(r.ttd_p90_s)),
+       r.auc === '' ? '—' : f3(num(r.auc)), r.avg_precision === '' ? '—' : f3(num(r.avg_precision)),
+       r.threshold === '' ? '—' : f3(num(r.threshold)), r.params === '' ? '—' : comma(num(r.params)),
+       r.flash_bytes === '' ? '—' : `${d3.format(',.1f')(num(r.flash_bytes) / 1024)} kB`, r.compute]
+        .forEach((v) => { const td = document.createElement('td'); td.textContent = v; tr.append(td); });
+      tb.append(tr);
+    });
+  }
+
+  function drawScenTable(rows) {
+    const tb = document.querySelector('#t-scen tbody'); tb.textContent = '';
+    rows.forEach((r) => {
+      const tr = document.createElement('tr'); tr.dataset.key = r.scenario;
+      const pos = r.anaphylaxis === 'yes';
+      [r.label, r.n_test, r.metric].forEach((v) => { const td = document.createElement('td'); td.textContent = v; tr.append(td); });
+      ['rules', 'logistic', 'tree', 'gbt'].forEach((k) => {
+        const v = num(r[k]); const bad = pos ? 1 - v : v;
+        const td = document.createElement('td'); td.className = 'vr-heat'; td.textContent = pct(v);
+        td.style.background = `color-mix(in srgb, var(--color-bad) ${Math.round(Math.min(1, bad * 1.4) * 45)}%, transparent)`;
+        tr.append(td);
+      });
+      tb.append(tr);
+    });
+  }
+
+  function drawTtd(models, ttd) {
+    const box = document.getElementById('c-ttd');
+    const row = 46, m = {t: 8, r: 16, b: 40, l: 0};
+    const H = m.t + row * MODELS.length + m.b;
+    const {svg, tip, w} = newSvg(box, H);
+    const vals = ttd.map((d) => num(d.seconds_from_onset)).sort(d3.ascending);
+    const lo = Math.min(-60, d3.quantile(vals, 0.01)), hi = d3.quantile(vals, 0.99);
+    const names = svg.append('g');
+    MODELS.forEach((mod, i) => names.append('text').attr('x', 0).attr('y', m.t + i * row + row / 2 + 4).text(SHORT[mod]));
+    m.l = d3.max(names.selectAll('text').nodes(), (n) => n.getComputedTextLength()) + 14;
+    const x = d3.scaleLinear([lo, hi], [m.l, w - m.r]).nice().clamp(true);
+    svg.append('g').attr('class', 'grid').selectAll('line').data(x.ticks(6)).join('line')
+      .attr('x1', x).attr('x2', x).attr('y1', m.t).attr('y2', H - m.b);
+    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', m.t).attr('y2', H - m.b).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '4 3');
+    svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor(w / 100))).tickFormat((v) => `${v} s`)).call(axisStyle);
+    svg.append('text').attr('x', (m.l + w - m.r) / 2).attr('y', H - 6).attr('text-anchor', 'middle').text('Seconds from organ involvement to alarm');
+    MODELS.forEach((mod, i) => {
+      const v = ttd.filter((d) => d.model === mod).map((d) => num(d.seconds_from_onset)).sort(d3.ascending);
+      const cy = m.t + i * row + row / 2;
+      const g = svg.append('g');
+      g.selectAll('circle').data(v).join('circle').attr('cx', (d) => x(d)).attr('cy', (d, j) => cy + (((j * 7919) % 23) / 22 - 0.5) * 22)
+        .attr('r', 2.5).attr('fill', colorOf(mod)).attr('fill-opacity', 0.35);
+      const q1 = d3.quantile(v, 0.25), q3 = d3.quantile(v, 0.75), md = d3.quantile(v, 0.5);
+      g.append('rect').attr('x', x(q1)).attr('width', Math.max(2, x(q3) - x(q1))).attr('y', cy - 8).attr('height', 16).attr('rx', 4)
+        .attr('fill', 'none').attr('stroke', colorOf(mod)).attr('stroke-width', 2);
+      g.append('line').attr('x1', x(md)).attr('x2', x(md)).attr('y1', cy - 10).attr('y2', cy + 10).attr('stroke', 'var(--color-fg)').attr('stroke-width', 2);
+      const r = models.find((d) => d.model === mod) || {};
+      g.append('rect').attr('x', m.l).attr('y', cy - row / 2).attr('width', w - m.l - m.r).attr('height', row).attr('fill', 'transparent')
+        .on('pointermove', (ev) => {
+          const [px] = d3.pointer(ev);
+          showTip(tip, box, px, cy - row / 2, SHORT[mod], [[colorOf(mod), 'Median', secs(num(r.ttd_median_s))], [null, '90th percentile', secs(num(r.ttd_p90_s))],
+            [null, 'Episodes caught', pct1(num(r.sensitivity))]]);
+        })
+        .on('pointerleave', () => tip.style('display', 'none'));
+    });
+  }
+
+  function drawShift(models, id, field, sfield) {
+    const box = document.getElementById(id);
+    const row = 30, m = {t: 4, r: 16, b: 26, l: 0};
+    const H = m.t + row * MODELS.length + m.b;
+    const {svg, tip, w} = newSvg(box, H);
+    const names = svg.append('g');
+    MODELS.forEach((mod, i) => names.append('text').attr('x', 0).attr('y', m.t + i * row + row / 2 + 4).text(SHORT[mod]));
+    m.l = d3.max(names.selectAll('text').nodes(), (n) => n.getComputedTextLength()) + 14;
+    const v = models.flatMap((r) => [num(r[field]), num(r[sfield])]);
+    const dom = field === 'sensitivity' ? [Math.min(0.6, d3.min(v) - 0.05), 1] : [0, Math.max(0.2, d3.max(v) + 0.02)];
+    const x = d3.scaleLinear(dom, [m.l, w - m.r]).nice();
+    svg.append('g').attr('class', 'grid').selectAll('line').data(x.ticks(5)).join('line').attr('x1', x).attr('x2', x).attr('y1', m.t).attr('y2', H - m.b);
+    svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor(w / 90))).tickFormat(pct)).call(axisStyle);
+    MODELS.forEach((mod, i) => {
+      const r = models.find((d) => d.model === mod); if (!r) return;
+      const cy = m.t + i * row + row / 2, a = num(r[field]), b = num(r[sfield]);
+      svg.append('line').attr('x1', x(a)).attr('x2', x(b)).attr('y1', cy).attr('y2', cy).attr('stroke', colorOf(mod)).attr('stroke-width', 2);
+      svg.append('circle').attr('cx', x(a)).attr('cy', cy).attr('r', 5).attr('fill', 'var(--color-panel)').attr('stroke', colorOf(mod)).attr('stroke-width', 2);
+      svg.append('circle').attr('cx', x(b)).attr('cy', cy).attr('r', 5).attr('fill', colorOf(mod)).attr('stroke', 'var(--color-panel)').attr('stroke-width', 2);
+      svg.append('rect').attr('x', m.l).attr('y', cy - row / 2).attr('width', w - m.l - m.r).attr('height', row).attr('fill', 'transparent')
+        .on('pointermove', () => showTip(tip, box, Math.max(x(a), x(b)), cy - row / 2, SHORT[mod],
+          [[null, 'Standard test', pct1(a)], [colorOf(mod), 'Harder world', pct1(b)]]))
+        .on('pointerleave', () => tip.style('display', 'none'));
+    });
+  }
+
+  function drawFeatures(rows) {
+    const box = document.getElementById('c-feat'); box.textContent = '';
+    const top = rows.map((r) => ({d: r.description, v: num(r.importance)})).sort((a, b) => b.v - a.v).slice(0, 12);
+    const max = d3.max(top, (d) => d.v) || 1;
+    const f = d3.format('.3f');
+    top.forEach((d) => {
+      const r = document.createElement('div'); r.className = 'vr-bar-row';
+      const t = document.createElement('div'); t.className = 'vr-bar-top';
+      const a = document.createElement('span'); a.textContent = d.d;
+      const b = document.createElement('span'); b.textContent = `−${f(Math.max(0, d.v))} AUC`;
+      t.append(a, b);
+      const tr = document.createElement('div'); tr.className = 'vr-bar-track';
+      const fi = document.createElement('div'); fi.className = 'vr-bar-fill';
+      fi.style.width = `${Math.max(1, (Math.max(0, d.v) / max) * 100)}%`; fi.style.background = dash.colors[0];
+      tr.append(fi); r.append(t, tr); box.append(r);
+    });
+  }
+
+  function drawTimeline(models, rows) {
+    const btns = document.getElementById('ex-btns');
+    const exs = Array.from(d3.group(rows, (r) => r.example), ([k, v]) => ({k, label: v[0].scenario, rows: v}));
+    if (example == null || !exs.find((e) => e.k === example)) example = exs[0].k;
+    btns.textContent = '';
+    exs.forEach((e) => {
+      const b = document.createElement('button'); b.type = 'button'; b.id = `ex-${e.k}`; b.textContent = e.label;
+      b.setAttribute('aria-pressed', String(e.k === example));
+      b.addEventListener('click', () => { example = e.k; drawTimeline(models, rows); });
+      btns.append(b);
+    });
+    const gb = models.find((r) => r.model === MODELS[0]);
+    const thr = gb ? num(gb.threshold) : NaN;
+    const lgP = document.querySelector('.vr-lg-p'); lgP.textContent = '';
+    const i1 = document.createElement('i'); i1.style.background = colorOf(MODELS[0]); lgP.append(i1, 'Boosted-trees probability');
+    const lgR = document.querySelector('.vr-lg-r'); lgR.textContent = '';
+    const i2 = document.createElement('i'); i2.className = 'bar'; i2.style.background = colorOf(MODELS[3]); lgR.append(i2, 'Firmware rules alarm');
+
+    const data = exs.find((e) => e.k === example).rows.map((r) => ({
+      t: num(r.minute), hr: num(r.heart_rate), rr: num(r.breathing_rate), wz: num(r.wheezes_last_min),
+      hist: num(r.histamine_ratio), pi: num(r.perfusion_ratio), p: num(r.model_probability), rule: num(r.rules_alarm), down: num(r.collapsed_or_fell),
+    }));
+    const t0 = num(rows.find((r) => r.example === example).event_start_min);
+    const t1 = num(rows.find((r) => r.example === example).organ_onset_min);
+    const panels = [
+      {k: 'hr', name: 'Heart rate', unit: '/min', f: d3.format('.0f')},
+      {k: 'rr', name: 'Breathing rate', unit: '/min', f: d3.format('.0f')},
+      {k: 'wz', name: 'Wheeze detections, last minute', unit: '', f: d3.format('.0f')},
+      {k: 'hist', name: 'Histamine', unit: '× baseline', f: d3.format('.2f')},
+      {k: 'pi', name: 'Perfusion index', unit: '× baseline', f: d3.format('.2f')},
+      {k: 'p', name: 'Anaphylaxis probability', unit: '', f: d3.format('.2f')},
+    ];
+    const box = document.getElementById('c-tl');
+    const ph = 64, gap = 22, m = {t: 18, r: 12, b: 34, l: 40};
+    const H = m.t + panels.length * (ph + gap) - gap + 14 + m.b;
+    const {svg, tip, w} = newSvg(box, H);
+    const x = d3.scaleLinear(d3.extent(data, (d) => d.t), [m.l, w - m.r]);
+    const top = (i) => m.t + i * (ph + gap);
+    // collapse / fall bands
+    const runs = []; let s = null;
+    data.forEach((d, i) => { if (d.down && s == null) s = d.t; if ((!d.down || i === data.length - 1) && s != null) { runs.push([s, d.t]); s = null; } });
+    svg.append('g').selectAll('rect').data(runs).join('rect').attr('x', (r) => x(r[0])).attr('width', (r) => Math.max(1, x(r[1]) - x(r[0])))
+      .attr('y', m.t - 6).attr('height', top(panels.length - 1) + ph + 20 - m.t).attr('fill', 'var(--cds-chart-muted)').attr('fill-opacity', 0.25);
+    panels.forEach((p, i) => {
+      const vals = data.map((d) => d[p.k]);
+      let dom = p.k === 'p' ? [0, 1] : d3.extent(vals);
+      if (p.k === 'wz') dom = [0, Math.max(4, dom[1])];
+      if (p.k === 'hist' || p.k === 'pi') dom = [Math.min(0, dom[0]), Math.max(1.5, dom[1])];
+      const y = d3.scaleLinear(dom, [top(i) + ph, top(i)]).nice(3);
+      p.y = y;
+      svg.append('text').attr('x', m.l).attr('y', top(i) - 6).text(p.unit ? `${p.name} (${p.unit})` : p.name).style('fill', 'var(--color-fg)');
+      svg.append('g').attr('class', 'grid').selectAll('line').data(y.ticks(3)).join('line').attr('x1', m.l).attr('x2', w - m.r).attr('y1', y).attr('y2', y);
+      svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(3).tickSize(0).tickPadding(6)).call(axisStyle).call((g) => g.select('.domain').remove());
+      if ((p.k === 'hist' || p.k === 'pi')) svg.append('line').attr('x1', m.l).attr('x2', w - m.r).attr('y1', y(1)).attr('y2', y(1)).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '4 3');
+      if (p.k === 'p' && isFinite(thr)) {
+        svg.append('line').attr('x1', m.l).attr('x2', w - m.r).attr('y1', y(thr)).attr('y2', y(thr)).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '4 3');
+        svg.append('text').attr('x', w - m.r).attr('y', y(thr) - 4).attr('text-anchor', 'end').text('Alarm threshold');
+      }
+      const c = p.k === 'p' ? colorOf(MODELS[0]) : 'var(--color-fg-muted)';
+      svg.append('path').attr('d', d3.line().x((d) => x(d.t)).y((d) => y(d[p.k]))(data)).attr('fill', 'none').attr('stroke', c).attr('stroke-width', p.k === 'p' ? 2 : 1.5)
+        .attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round');
+    });
+    // rules alarm strip under the last panel
+    const sy = top(panels.length - 1) + ph + 6;
+    const rr = []; s = null;
+    data.forEach((d, i) => { if (d.rule && s == null) s = d.t; if ((!d.rule || i === data.length - 1) && s != null) { rr.push([s, d.t]); s = null; } });
+    svg.append('g').selectAll('rect').data(rr).join('rect').attr('x', (r) => x(r[0])).attr('width', (r) => Math.max(2, x(r[1]) - x(r[0])))
+      .attr('y', sy).attr('height', 8).attr('rx', 2).attr('fill', colorOf(MODELS[3]));
+    const bottom = sy + 14;
+    [[t0, 'Event starts'], [t1, 'Organs involved']].forEach(([t, label], j) => {
+      if (!isFinite(t)) return;
+      svg.append('line').attr('x1', x(t)).attr('x2', x(t)).attr('y1', m.t - 6).attr('y2', bottom).attr('stroke', 'var(--color-fg)').attr('stroke-opacity', 0.6).attr('stroke-dasharray', '3 3');
+      const tx = svg.append('text').attr('x', x(t) + 4).attr('y', m.t - 6 + (j && isFinite(t0) && Math.abs(x(t1) - x(t0)) < 110 ? 0 : 0)).text(label).style('fill', 'var(--color-fg)');
+      if (j && isFinite(t0) && Math.abs(x(t1) - x(t0)) < 110) tx.attr('y', top(1) - 6).attr('x', x(t) + 4);
+    });
+    svg.append('g').attr('transform', `translate(0,${bottom})`).call(d3.axisBottom(x).ticks(Math.max(4, Math.floor(w / 80))).tickFormat((v) => `${v}`)).call(axisStyle);
+    svg.append('text').attr('x', (m.l + w - m.r) / 2).attr('y', bottom + 30).attr('text-anchor', 'middle').text('Minutes into the recording');
+    const rule = svg.append('line').attr('y1', m.t - 6).attr('y2', bottom).attr('stroke', 'var(--color-fg)').attr('stroke-width', 1).style('display', 'none');
+    const dots = svg.append('g').style('display', 'none');
+    panels.forEach((p) => { p.dot = dots.append('circle').attr('r', 3.5).attr('fill', p.k === 'p' ? colorOf(MODELS[0]) : 'var(--color-fg)').attr('stroke', 'var(--color-panel)').attr('stroke-width', 2); });
+    const bis = d3.bisector((d) => d.t).center;
+    svg.append('rect').attr('x', m.l).attr('y', m.t - 6).attr('width', w - m.l - m.r).attr('height', bottom - m.t + 6).attr('fill', 'transparent')
+      .on('pointermove', (ev) => {
+        const [px, py] = d3.pointer(ev); const d = data[bis(data, x.invert(px))];
+        rule.style('display', null).attr('x1', x(d.t)).attr('x2', x(d.t));
+        dots.style('display', null); panels.forEach((p) => p.dot.attr('cx', x(d.t)).attr('cy', p.y(d[p.k])));
+        const lines = panels.map((p) => [p.k === 'p' ? colorOf(MODELS[0]) : null, p.name, `${p.f(d[p.k])}${p.unit && p.unit !== '/min' ? '×' : ''}`]);
+        lines.push([colorOf(MODELS[3]), 'Firmware rules', d.rule ? 'alarm' : 'quiet']);
+        if (d.down) lines.push([null, 'Body', 'collapsed or fallen']);
+        showTip(tip, box, x(d.t), Math.min(py, H - 260), `Minute ${d3.format('.1f')(d.t)}`, lines);
+      })
+      .on('pointerleave', () => { rule.style('display', 'none'); dots.style('display', 'none'); tip.style('display', 'none'); });
+  }
+
+  function drawRoc(rows) {
+    const box = document.getElementById('c-roc');
+    const H = 280, m = {t: 10, r: 16, b: 44, l: 48};
+    const {svg, tip, w} = newSvg(box, H);
+    const pts = rows.map((r) => ({model: r.model, f: Math.max(1e-4, num(r.fpr)), t: num(r.tpr)}));
+    const x = d3.scaleLog([1e-4, 1], [m.l, w - m.r]).clamp(true);
+    const y = d3.scaleLinear([0, 1], [H - m.b, m.t]);
+    svg.append('g').attr('class', 'grid').selectAll('line').data(y.ticks(5)).join('line').attr('x1', m.l).attr('x2', w - m.r).attr('y1', y).attr('y2', y);
+    svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).tickValues([1e-4, 1e-3, 1e-2, 1e-1, 1]).tickFormat(d3.format('~%'))).call(axisStyle);
+    svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5).tickFormat(pct)).call(axisStyle).call((g) => g.select('.domain').remove());
+    svg.append('text').attr('x', (m.l + w - m.r) / 2).attr('y', H - 8).attr('text-anchor', 'middle').text('Normal seconds flagged (log scale)');
+    svg.append('text').attr('transform', `translate(12,${(m.t + H - m.b) / 2}) rotate(-90)`).attr('text-anchor', 'middle').text('Anaphylaxis seconds flagged');
+    const line = d3.line().x((d) => x(d.f)).y((d) => y(d.t));
+    MODELS.slice(0, 3).forEach((mod) => {
+      svg.append('path').attr('d', line(pts.filter((d) => d.model === mod))).attr('fill', 'none').attr('stroke', colorOf(mod)).attr('stroke-width', 2).attr('stroke-linejoin', 'round');
+    });
+    const del = d3.Delaunay.from(pts, (d) => x(d.f), (d) => y(d.t));
+    const dot = svg.append('circle').attr('r', 5).attr('fill', 'none').attr('stroke-width', 2).style('display', 'none');
+    svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', w - m.l - m.r).attr('height', H - m.t - m.b).attr('fill', 'transparent')
+      .on('pointermove', (ev) => {
+        const [px, py] = d3.pointer(ev); const d = pts[del.find(px, py)];
+        dot.style('display', null).attr('cx', x(d.f)).attr('cy', y(d.t)).attr('stroke', colorOf(d.model));
+        showTip(tip, box, x(d.f), y(d.t), SHORT[d.model], [[colorOf(d.model), 'Anaphylaxis seconds', pct1(d.t)], [null, 'Normal seconds', d3.format('.2%')(d.f)]]);
+      })
+      .on('pointerleave', () => { dot.style('display', 'none'); tip.style('display', 'none'); });
+  }
+
+  function drawRecTable(rows) {
+    const tb = document.querySelector('#t-rec tbody'); tb.textContent = '';
+    rows.forEach((r) => {
+      const tr = document.createElement('tr'); tr.dataset.key = r.scenario;
+      [r.label, r.anaphylaxis, r.total, r.train, r.validation, r.test].forEach((v) => { const td = document.createElement('td'); td.textContent = v; tr.append(td); });
+      tb.append(tr);
+    });
+  }
+
+  dash.onData(() => {
+    const models = load('models', [...document.querySelectorAll('.vr-fill')]);
+    fills(models);
+    legend(document.querySelector('.vr-models-legend'), MODELS);
+    legend(document.querySelector('.vr-models-legend3'), MODELS.slice(0, 3));
+    if (models) { drawModelsTable(models); drawShift(models, 'c-shift-sens', 'sensitivity', 'shift_sensitivity'); drawShift(models, 'c-shift-fa', 'false_alarm_rate', 'shift_false_alarm_rate'); }
+    else load('models', [document.getElementById('c-shift-sens'), document.getElementById('c-shift-fa')]);
+    const tr = load('tradeoff', [document.getElementById('c-tradeoff')]);
+    if (models && tr) drawTradeoff(models, tr);
+    const sc = load('scenarios', []); if (sc) drawScenTable(sc);
+    const tt = load('detection_time', [document.getElementById('c-ttd')]); if (models && tt) drawTtd(models, tt);
+    const fe = load('features', [document.getElementById('c-feat')]); if (fe) drawFeatures(fe);
+    const tl = load('timelines', [document.getElementById('c-tl')]); if (models && tl) drawTimeline(models, tl);
+    const ro = load('roc', [document.getElementById('c-roc')]); if (ro) drawRoc(ro);
+    const rc = load('recordings', []); if (rc) drawRecTable(rc);
+  });
+})();
+</script>
