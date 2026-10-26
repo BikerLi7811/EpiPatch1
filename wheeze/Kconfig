@@ -1,0 +1,121 @@
+# Wheeze detector Zephyr module.
+
+menuconfig WHEEZE_DETECTOR
+	bool "On-device wheeze detector (PDM MEMS mic + int8 CNN)"
+	depends on CPU_CORTEX_M && CPU_HAS_FPU
+	depends on STD_CPP20 || STD_CPP2B
+	select FPU
+	imply FPU_SHARING
+	select REQUIRES_FULL_LIBCPP
+	select AUDIO
+	select AUDIO_DMIC
+	select CMSIS_DSP
+	select CMSIS_DSP_BASICMATH
+	select CMSIS_DSP_COMPLEXMATH
+	select CMSIS_DSP_FILTERING
+	select CMSIS_DSP_STATISTICS
+	select CMSIS_DSP_TRANSFORM
+	select CMSIS_NN
+	select CMSIS_NN_CONVOLUTION
+	select CMSIS_NN_POOLING
+	select CMSIS_NN_FULLYCONNECTED
+	select CMSIS_NN_NNSUPPORT
+	imply GPIO
+	help
+	  Listens on the PDM microphone (DT alias "wheeze-mic", else "dmic0"),
+	  extracts log-mel features with CMSIS-DSP on the FPU and runs an int8
+	  CNN with CMSIS-NN (DSP-extension SIMD). Reports wheeze events through
+	  wheeze_start()'s callback. Requires CONFIG_CPP=y and CONFIG_STD_CPP20=y.
+
+if WHEEZE_DETECTOR
+
+config WHEEZE_THREAD_STACK_SIZE
+	int "Detector thread stack size"
+	default 4096
+
+config WHEEZE_THREAD_PRIORITY
+	int "Detector thread priority"
+	default 5
+
+menu "Microphone (set from your PDM mic's datasheet)"
+
+config WHEEZE_MIC_LP_CLK_MIN
+	int "Low-power PDM clock min [Hz] (8 kHz PCM)"
+	default 400000
+
+config WHEEZE_MIC_LP_CLK_MAX
+	int "Low-power PDM clock max [Hz] (8 kHz PCM)"
+	default 1100000
+	help
+	  The detector first asks for 8 kHz PCM within this clock range, which
+	  puts most MEMS mics in their low-power mode. If the driver/mic can't,
+	  it falls back to 16 kHz with the normal range below.
+
+config WHEEZE_MIC_CLK_MIN
+	int "Normal PDM clock min [Hz] (16 kHz fallback)"
+	default 1000000
+
+config WHEEZE_MIC_CLK_MAX
+	int "Normal PDM clock max [Hz] (16 kHz fallback)"
+	default 3250000
+
+config WHEEZE_MIC_RIGHT_CHANNEL
+	bool "Mic outputs on the right channel (SEL/LR pin tied high)"
+
+endmenu
+
+config WHEEZE_DUTY_CYCLE
+	bool "Adaptive mic duty-cycling (biggest battery saving)"
+	default y
+	help
+	  While nothing wheeze-like is heard, listen LISTEN ms out of every
+	  LISTEN + SLEEP ms; switch to continuous listening on any candidate
+	  until HOLD ms pass without one. Trade-off: episode onset can be
+	  noticed up to SLEEP ms late and a lone wheeze in a gap is missed.
+	  Say n for gap-free monitoring.
+
+if WHEEZE_DUTY_CYCLE
+
+config WHEEZE_DUTY_LISTEN_MS
+	int "Listen window while sampling [ms]"
+	default 8000
+
+config WHEEZE_DUTY_SLEEP_MS
+	int "Mic-off gap while sampling [ms]"
+	default 22000
+
+config WHEEZE_DUTY_HOLD_MS
+	int "Stay continuous after last candidate [ms]"
+	default 60000
+
+endif
+
+# Defaults still needed by the code when duty-cycling is off
+config WHEEZE_DUTY_LISTEN_MS
+	int
+	default 8000
+config WHEEZE_DUTY_SLEEP_MS
+	int
+	default 22000
+config WHEEZE_DUTY_HOLD_MS
+	int
+	default 60000
+
+config WHEEZE_LED_PULSE_MS
+	int "LED pulse per wheeze event [ms] (0 = off)"
+	default 30
+	help
+	  Flashes the GPIO behind DT alias "wheeze-led" (if present) when a
+	  wheeze event ends. Kept short: a lit LED draws milliamps.
+
+config WHEEZE_PROFILING
+	bool "Log DSP/CNN time, gate pass rate and mic-on % every 10 s"
+	depends on LOG
+	help
+	  Enables the DWT cycle counter. Costs current; bring-up only.
+
+module = WHEEZE
+module-str = wheeze
+source "subsys/logging/Kconfig.template.log_config"
+
+endif # WHEEZE_DETECTOR
